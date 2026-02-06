@@ -34,7 +34,9 @@ export default function HomePage() {
   const [isUsageModalOpen, setIsUsageModalOpen] = useState(false);
   const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
   const [isCompletionModalOpen, setIsCompletionModalOpen] = useState(false);
-  const [level, setLevel] = useState(1); // 백엔드 데이터 연동 시 변경
+
+  const level = 1; // 임시
+  // const [level, setLevel] = useState(1); // 백엔드 데이터 연동 시 변경
 
   const menuItems = [
     { label: '사용법', icon: CircleHelp, path: '#' },
