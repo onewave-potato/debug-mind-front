@@ -3,11 +3,12 @@ import bgImage from '@/assets/images/bg.png';
 import logo from '@/assets/images/logo.svg';
 import heroImage1 from '@/assets/images/lv1_6-1.svg';
 import heroImage2 from '@/assets/images/lv1_6-2.svg';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const handleGithubLogin = () => {
-    // TODO: Implement Github OAuth
-    console.log('Github Login Clicked');
+    navigate('/onboarding');
   };
 
   return (
