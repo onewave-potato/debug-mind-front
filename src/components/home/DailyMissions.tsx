@@ -1,5 +1,7 @@
 import { MessageSquare, BookOpen, Code, Trophy } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
+import { MissionModal } from './MissionModal';
 
 interface DailyMissionsProps {
   isOpen: boolean;
@@ -7,6 +9,11 @@ interface DailyMissionsProps {
 }
 
 export function DailyMissions({ isOpen, onToggle }: DailyMissionsProps) {
+  const [activeMission, setActiveMission] = useState<{
+    title: string;
+    question: string;
+  } | null>(null);
+
   const missions = [
     {
       id: 1,
@@ -96,8 +103,23 @@ export function DailyMissions({ isOpen, onToggle }: DailyMissionsProps) {
               {missions.map((mission) => (
                 <div
                   key={mission.id}
+                  onClick={() => {
+                    if (mission.title === '인성 면접') {
+                      setActiveMission({
+                        title: '인성 면접',
+                        question:
+                          '팀 내에서 의견 충돌이 발생했을 때, 이를 어떻게 원만하게 해결했던 경험이 있으신가요? 구체적인 사례를 들어 설명해주세요.',
+                      });
+                    } else if (mission.title === 'CS 퀴즈 챌린지') {
+                      setActiveMission({
+                        title: 'CS 퀴즈',
+                        question:
+                          '프로세스(Process)와 스레드(Thread)의 차이점에 대해 설명하고, 멀티 프로세스와 멀티 스레드 환경의 장단점을 비교해주세요.',
+                      });
+                    }
+                  }}
                   className={cn(
-                    'flex min-w-[130px] flex-col items-center rounded-[24px] border p-4 text-center shadow-sm transition-transform active:scale-95',
+                    'flex min-w-[130px] cursor-pointer flex-col items-center rounded-[24px] border p-4 text-center shadow-sm transition-transform active:scale-95',
                     mission.title === '오픈 소스 기여'
                       ? 'border-[#fcd34d]/30 bg-[#fffbeb]'
                       : 'border-slate-100 bg-white',
@@ -126,6 +148,13 @@ export function DailyMissions({ isOpen, onToggle }: DailyMissionsProps) {
           </div>
         </div>
       </div>
+
+      <MissionModal
+        isOpen={!!activeMission}
+        onClose={() => setActiveMission(null)}
+        title={activeMission?.title || ''}
+        question={activeMission?.question || ''}
+      />
     </div>
   );
 }
